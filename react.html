@@ -2,100 +2,98 @@
 <html>
 
 <head>
-    <title>Developer Quiz</title>
-
+    <title>Coder Pad React</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/17.0.2/umd/react.production.min.js"
         charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/17.0.2/umd/react-dom.production.min.js"
         charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js" charset="utf-8"></script>
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.orange-deep_orange.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <style>
-        .quiz {
-            display: block;
-            background: linear-gradient(to bottom, #2a86d6 0%, #7db9e8 100%);
-            padding: 40px;
-            color: #ffffff;
-        }
-
-        .quiz button {
-            display: block;
-            margin-bottom: 10px;
-            color: #000000;
-        }
-
-        .quiz .correct {
-            background-color: #ffffff;
-            padding: 5px;
-            color: #11AF08;
-            font-weight: bold;
-        }
-
-        .quiz .incorrect {
-            background-color: #ffffff;
-            padding: 5px;
-            color: #FF0C0C;
-            font-weight: bold;
-        }
     </style>
 
     <script type="text/babel">
-        const TestUseState = () => {
-            const [count, setCount] = React.useState(0);
-
+        const TopNavBar = () => {
             return (
-                <div>
-                    <p>useState api</p>
-                    <p>Count: {count} <button onClick={() => setCount(count + 1)}>自增</button></p>
+                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+                    <header class="mdl-layout__header">
+                        <div class="mdl-layout__header-row">
+                            <span class="mdl-layout-title">Coder Pad React</span>
+                            <div class="mdl-layout-spacer"></div>
+                            <nav class="mdl-navigation mdl-layout--large-screen-only">
+                                <a class="mdl-navigation__link" href="https://getmdl.io/">Material Design Lite</a>
+                                <a class="mdl-navigation__link" href="https://www.jimmysoftllc.com/">JimmySoftLLC</a>
+
+                            </nav>
+                        </div>
+                    </header>
+                    <div class="mdl-layout__drawer">
+                        <span class="mdl-layout-title">Coder Pad React</span>
+                        <nav class="mdl-navigation">
+                            <a class="mdl-navigation__link" href="https://getmdl.io/">Material Design Lite</a>
+                            <a class="mdl-navigation__link" href="https://www.jimmysoftllc.com/">JimmySoftLLC</a>
+                        </nav>
+                    </div>
                 </div>
             )
         }
 
-        const TestUseStateObject = () => {
+        const TestUseState = (props) => {
+            console.log(props)
+            return (
+                <div>
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+                        <i class="material-icons">add</i>
+                    </button>
+                    <p>useState api</p>
+                    <p>Count: {props.count}
+
+                    </p>
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onClick={() => props.setCount(count + 1)}>+
+                    </button>
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onClick={() => props.setCount(count + 1)}>+
+                    </button>
+                </div>
+            )
+        }
+
+        const TestUseStateObject = (props) => {
+            console.log('state > ', props.state)
+            return (
+                <div>
+                    <p>useStateObject api</p>
+                    <p>Count: {props.state.count} <button onClick={props.handleAdd}>自增</button></p>
+                </div>
+            )
+        }
+
+        const App = () => {
+            const [count, setCount] = React.useState(0);
             const [state, setState] = React.useState({
                 count: 0,
                 greeting: "Hello, World!",
             });
             const handleAdd = () => {
                 setState({
-                    // ...state,
+                    ...state,
                     count: state.count + 1
                 })
             }
-            console.log('state > ', state)
             return (
-                <div>
-                    <p>useStateObject api</p>
-                    <p>Count: {state.count} <button onClick={handleAdd}>自增</button></p>
-                </div>
-            )
-        }
-
-        const TestMultipleUseState = () => {
-            const [count, setCount] = React.useState(0);
-            const [name, setName] = React.useState('john');
-            return (
-                <div>
-                    <p>useState api</p>
-                    <p>Count: {count} - Name: {name}</p>
-                </div>
-            )
-        }
-
-        class App extends React.Component {
-            render() {
-                return (
-                    <div className="App">
-                        <h1>Hello</h1>
-                        <h2>Start editing to see some magic happen!</h2>
-                        <TestUseState />
-                        <TestUseStateObject />
-                        <TestMultipleUseState />
+                <div className="App">
+                    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+                        <TopNavBar />
+                        <main class="mdl-layout__content">
+                            <div class="page-content">
+                                <TestUseState />
+                            </div>
+                        </main>
                     </div>
-                );
-            }
+                </div>
+            );
         }
-
 
         const rootElement = document.getElementById("root");
         ReactDOM.render(<App />, rootElement);
