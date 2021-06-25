@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.orange-deep_orange.min.css" />
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <style>
+        .home-page-top-margin {
+            margin-top: 6rem;
+        }
     </style>
 
     <script type="text/babel">
@@ -40,54 +43,70 @@
             )
         }
 
-        const TestUseState = (props) => {
-            console.log(props)
+        const CounterComponent = () => {
+            const [count, setCount] = React.useState(0);
+
+            const handleChange = (e) => {
+                setCount(e.target.value)
+            }
+
+            const addOne = () => {
+                let myCount = count
+                myCount++
+                setCount(myCount)
+            }
+
+            const removeOne = () => {
+                let myCount = count
+                myCount--
+                setCount(myCount)
+            }
+
             return (
                 <div>
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-                        <i class="material-icons">add</i>
-                    </button>
-                    <p>useState api</p>
-                    <p>Count: {props.count}
-
-                    </p>
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onClick={() => props.setCount(count + 1)}>+
-                    </button>
-                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onClick={() => props.setCount(count + 1)}>+
-                    </button>
-                </div>
-            )
-        }
-
-        const TestUseStateObject = (props) => {
-            console.log('state > ', props.state)
-            return (
-                <div>
-                    <p>useStateObject api</p>
-                    <p>Count: {props.state.count} <button onClick={props.handleAdd}>自增</button></p>
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--2-col">
+                            <button
+                                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+                                onClick={() => addOne()}
+                            >
+                                <i class="material-icons">add</i>
+                            </button>
+                        </div>
+                        <div class="mdl-cell mdl-cell--2-col">
+                            <button
+                                class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+                                onClick={() => removeOne()}
+                            >
+                                <i class="material-icons">remove</i>
+                            </button>
+                        </div>
+                        <div class="mdl-cell mdl-cell--8-col">
+                            <form action="#">
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="sample2" value={count} onChange={handleChange} />
+                                    <label class="mdl-textfield__label" for="sample2">Number...</label>
+                                    <span class="mdl-textfield__error">Input is not a number!</span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             )
         }
 
         const App = () => {
-            const [count, setCount] = React.useState(0);
-            const [state, setState] = React.useState({
-                count: 0,
-                greeting: "Hello, World!",
-            });
-            const handleAdd = () => {
-                setState({
-                    ...state,
-                    count: state.count + 1
-                })
-            }
             return (
                 <div className="App">
                     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
                         <TopNavBar />
                         <main class="mdl-layout__content">
-                            <div class="page-content">
-                                <TestUseState />
+                            <div class="page-content home-page-top-margin">
+                                <div class="mdl-grid">
+                                    <CounterComponent />
+                                    <CounterComponent />
+                                    <CounterComponent />
+                                </div>
                             </div>
                         </main>
                     </div>
